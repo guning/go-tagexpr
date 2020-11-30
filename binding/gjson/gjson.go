@@ -102,7 +102,7 @@ func assign(jsval gjson.Result, goval reflect.Value) {
 		jsval.ForEach(func(key, value gjson.Result) bool {
 			if idx, ok := sf[key.Str]; ok {
 				f := goval.Field(idx)
-				if f.CanSet() {
+				if f.CanSet() && value.Type == gjson.JSON {
 					assign(value, f)
 				}
 			}
